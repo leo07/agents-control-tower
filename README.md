@@ -27,6 +27,7 @@
 </p>
 
 <p align="center">
+  <a href="https://www.npmjs.com/package/agents-control-tower"><img src="https://img.shields.io/npm/v/agents-control-tower.svg" alt="npm" /></a>
   <a href="https://github.com/ofershap/agents-control-tower/actions/workflows/ci.yml"><img src="https://github.com/ofershap/agents-control-tower/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-strict-blue" alt="TypeScript" /></a>
@@ -100,6 +101,8 @@ The dashboard polls every 5 seconds. Scroll through agents with arrow keys, view
 ---
 
 ## Install
+
+Published as **[agents-control-tower](https://www.npmjs.com/package/agents-control-tower)** on npm.
 
 Run directly with npx (nothing to install):
 
