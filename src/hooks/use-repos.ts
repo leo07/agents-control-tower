@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { listRepos } from "../lib/cursor-api.js";
+import { listRepositories } from "../lib/cursor-api.js";
 import type { Repository } from "../lib/types.js";
 
 export function useRepos(apiKey: string) {
@@ -7,7 +7,7 @@ export function useRepos(apiKey: string) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    listRepos(apiKey)
+    listRepositories(apiKey)
       .then(setRepos)
       .catch(() => {})
       .finally(() => setLoading(false));

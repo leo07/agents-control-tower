@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { listModels } from "../lib/cursor-api.js";
-import type { Model } from "../lib/types.js";
 
 export function useModels(apiKey: string) {
-  const [models, setModels] = useState<Model[]>([]);
+  const [models, setModels] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

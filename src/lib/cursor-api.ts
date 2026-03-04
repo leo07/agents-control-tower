@@ -2,12 +2,12 @@ import type {
   CloudAgent,
   AgentConversation,
   Repository,
-  Model,
-  LaunchAgentParams,
-  FollowUpParams,
+  Artifact,
+  CreateAgentRequest,
+  FollowUpRequest,
 } from "./types.js";
 
-const BASE_URL = "https://api.cursor.com/v0";
+const BASE_URL = "https://api.cursor.com";
 
 export class CursorApiError extends Error {
   constructor(
@@ -46,9 +46,12 @@ async function request<T>(
   return res.json() as Promise<T>;
 }
 
-export async function listAgents(apiKey: string): Promise<CloudAgent[]> {
-  const data = await request<{ agents: CloudAgent[] }>(
-    "/agents?limit=100",
+export async function listAgents(
+  apiKey: string,
+  limit = 100,
+): Promise<CloudAgent[]> {
+  const data = await request<{ agents: CloudAgent[]; nextCursor?: string }>(
+    `/v0/agents?limit=${limit}`,
     apiKey,
   );
   return data.agents ?? [];
@@ -58,7 +61,7 @@ export async function getAgent(
   apiKey: string,
   agentId: string,
 ): Promise<CloudAgent> {
-  return request<CloudAgent>(`/agents/${agentId}`, apiKey);
+  return request<CloudAgent>(`/v0/agents/${agentId}`, apiKey);
 }
 
 export async function getConversation(
@@ -66,33 +69,40 @@ export async function getConversation(
   agentId: string,
 ): Promise<AgentConversation> {
   return request<AgentConversation>(
-    `/agents/${agentId}/conversation`,
+    `/v0/agents/${agentId}/conversation`,
     apiKey,
   );
 }
 
-export async function launchAgent(
+export async function listArtifacts(
   apiKey: string,
-  params: LaunchAgentParams,
+  agentId: string,
+): Promise<Artifact[]> {
+  const data = await request<{ artifacts: Artifact[] }>(
+    `/v0/agents/${agentId}/artifacts`,
+    apiKey,
+  );
+  return data.artifacts ?? [];
+}
+
+export async function createAgent(
+  apiKey: string,
+  params: CreateAgentRequest,
 ): Promise<CloudAgent> {
-  return request<CloudAgent>("/agents", apiKey, {
+  return request<CloudAgent>("/v0/agents", apiKey, {
     method: "POST",
-    body: JSON.stringify({
-      repo_full_name: params.repoFullName,
-      prompt: params.prompt,
-      model_id: params.modelId,
-      base_branch: params.baseBranch,
-    }),
+    body: JSON.stringify(params),
   });
 }
 
 export async function followUpAgent(
   apiKey: string,
-  params: FollowUpParams,
+  agentId: string,
+  params: FollowUpRequest,
 ): Promise<void> {
-  await request(`/agents/${params.agentId}/follow-up`, apiKey, {
+  await request(`/v0/agents/${agentId}/followup`, apiKey, {
     method: "POST",
-    body: JSON.stringify({ prompt: params.prompt }),
+    body: JSON.stringify(params),
   });
 }
 
@@ -100,29 +110,40 @@ export async function stopAgent(
   apiKey: string,
   agentId: string,
 ): Promise<void> {
-  await request(`/agents/${agentId}/stop`, apiKey, { method: "POST" });
+  await request(`/v0/agents/${agentId}/stop`, apiKey, { method: "POST" });
 }
 
 export async function deleteAgent(
   apiKey: string,
   agentId: string,
 ): Promise<void> {
-  await request(`/agents/${agentId}`, apiKey, { method: "DELETE" });
+  await request(`/v0/agents/${agentId}`, apiKey, { method: "DELETE" });
 }
 
-export async function listRepos(apiKey: string): Promise<Repository[]> {
-  const data = await request<{ repos: Repository[] }>("/repos", apiKey);
-  return data.repos ?? [];
+export async function listRepositories(
+  apiKey: string,
+): Promise<Repository[]> {
+  const data = await request<{ repositories: Repository[] }>(
+    "/v0/repositories",
+    apiKey,
+  );
+  return data.repositories ?? [];
 }
 
-export async function listModels(apiKey: string): Promise<Model[]> {
-  const data = await request<{ models: Model[] }>("/models", apiKey);
+export async function listModels(apiKey: string): Promise<string[]> {
+  const data = await request<{ models: string[] }>("/v0/models", apiKey);
   return data.models ?? [];
+}
+
+export async function getMe(
+  apiKey: string,
+): Promise<{ apiKeyName: string; createdAt: string; userEmail?: string }> {
+  return request("/v0/me", apiKey);
 }
 
 export async function validateApiKey(apiKey: string): Promise<boolean> {
   try {
-    await listAgents(apiKey);
+    await getMe(apiKey);
     return true;
   } catch {
     return false;

@@ -75,7 +75,7 @@ The dashboard polls every 5 seconds. Running agents pulse amber. Finished agents
 npx agents-control-tower
 ```
 
-On first run, the setup wizard asks for your Cursor API key. Get one at [cursor.com/settings](https://cursor.com/settings) under API Keys. The key is saved to `~/.agents-control-tower/config.json`.
+On first run, the setup wizard asks for your Cursor API key. Get one at [cursor.com/dashboard → Integrations](https://cursor.com/dashboard?tab=integrations). The key is saved to `~/.agents-control-tower/config.json`.
 
 Or set it as an env var:
 

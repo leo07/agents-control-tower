@@ -13,7 +13,7 @@ const AMBER = "#e8912d";
 
 interface FollowUpPromptProps {
   agent: CloudAgent;
-  onSubmit: (prompt: string) => void;
+  onSubmit: (text: string) => void;
   onCancel: () => void;
 }
 
@@ -35,7 +35,7 @@ export function FollowUpPrompt({
       <Box marginTop={1} gap={1}>
         <StatusBadge status={agent.status} />
         <Text color={BODY} bold>
-          {agent.prompt.slice(0, 50)}
+          {agent.name.slice(0, 50)}
         </Text>
         <Text color={DIM}>· {elapsed}</Text>
       </Box>

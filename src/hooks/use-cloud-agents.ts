@@ -3,7 +3,7 @@ import {
   listAgents,
   stopAgent,
   deleteAgent,
-  launchAgent,
+  createAgent,
   followUpAgent,
   CursorApiError,
 } from "../lib/cursor-api.js";
@@ -11,8 +11,7 @@ import type {
   CloudAgent,
   AgentStats,
   ActivityEvent,
-  LaunchAgentParams,
-  FollowUpParams,
+  CreateAgentRequest,
 } from "../lib/types.js";
 
 const POLL_INTERVAL = 5000;
@@ -25,8 +24,8 @@ interface UseCloudAgentsResult {
   error: CursorApiError | null;
   loading: boolean;
   refresh: () => Promise<void>;
-  launch: (params: LaunchAgentParams) => Promise<CloudAgent>;
-  followUp: (params: FollowUpParams) => Promise<void>;
+  launch: (params: CreateAgentRequest) => Promise<CloudAgent>;
+  followUp: (agentId: string, text: string) => Promise<void>;
   stop: (agentId: string) => Promise<void>;
   remove: (agentId: string) => Promise<void>;
 }
@@ -34,10 +33,10 @@ interface UseCloudAgentsResult {
 function computeStats(agents: CloudAgent[]): AgentStats {
   return {
     running: agents.filter(
-      (a) => a.status === "running" || a.status === "creating",
+      (a) => a.status === "RUNNING" || a.status === "CREATING",
     ).length,
-    completed: agents.filter((a) => a.status === "completed").length,
-    error: agents.filter((a) => a.status === "error").length,
+    completed: agents.filter((a) => a.status === "FINISHED").length,
+    error: agents.filter((a) => a.status === "ERROR").length,
     total: agents.length,
   };
 }
@@ -56,27 +55,27 @@ function diffActivity(
         id: `${agent.id}-started`,
         timestamp: new Date(),
         type: "started",
-        agentName: agent.prompt.slice(0, 50),
-        detail: agent.repoFullName,
+        agentName: agent.name,
+        detail: agent.source.repository,
       });
     } else if (old.status !== agent.status) {
       const type =
-        agent.status === "completed"
+        agent.status === "FINISHED"
           ? "completed"
-          : agent.status === "error"
+          : agent.status === "ERROR"
             ? "error"
-            : agent.status === "stopped"
+            : agent.status === "EXPIRED"
               ? "stopped"
               : "started";
       events.push({
         id: `${agent.id}-${type}-${Date.now()}`,
         timestamp: new Date(),
         type,
-        agentName: agent.prompt.slice(0, 50),
+        agentName: agent.name,
         detail:
-          agent.status === "completed" && agent.prUrl
-            ? `PR ${agent.prUrl}`
-            : agent.errorMessage ?? undefined,
+          agent.status === "FINISHED" && agent.target.prUrl
+            ? `PR ${agent.target.prUrl}`
+            : agent.summary ?? undefined,
       });
     }
   }
@@ -121,8 +120,8 @@ export function useCloudAgents(apiKey: string): UseCloudAgentsResult {
   }, [refresh]);
 
   const launch = useCallback(
-    async (params: LaunchAgentParams) => {
-      const agent = await launchAgent(apiKey, params);
+    async (params: CreateAgentRequest) => {
+      const agent = await createAgent(apiKey, params);
       await refresh();
       return agent;
     },
@@ -130,8 +129,8 @@ export function useCloudAgents(apiKey: string): UseCloudAgentsResult {
   );
 
   const followUp = useCallback(
-    async (params: FollowUpParams) => {
-      await followUpAgent(apiKey, params);
+    async (agentId: string, text: string) => {
+      await followUpAgent(apiKey, agentId, { prompt: { text } });
       await refresh();
     },
     [apiKey, refresh],

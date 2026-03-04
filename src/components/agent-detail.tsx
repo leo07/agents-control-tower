@@ -11,6 +11,12 @@ const BODY = "#c9d1d9";
 const DIM = "#4a6785";
 const AMBER = "#e8912d";
 
+function repoShortName(repo: string): string {
+  return repo
+    .replace("https://github.com/", "")
+    .replace("github.com/", "");
+}
+
 interface AgentDetailProps {
   agent: CloudAgent;
   apiKey: string;
@@ -41,15 +47,15 @@ export function AgentDetail({
 
   useInput((input, key) => {
     if (key.escape) onBack();
-    if (input === "f" && agent.status === "running") onFollowUp();
-    if (input === "s" && agent.status === "running") onStop();
+    if (input === "f" && agent.status === "RUNNING") onFollowUp();
+    if (input === "s" && agent.status === "RUNNING") onStop();
     if (input === "d") onDelete();
     if (input === "o") onOpenBrowser();
   });
 
   const lastAssistantMsg = [...messages]
     .reverse()
-    .find((m) => m.role === "assistant");
+    .find((m) => m.type === "assistant_message");
 
   return (
     <Box flexDirection="column" paddingX={1}>
@@ -60,7 +66,7 @@ export function AgentDetail({
         <Text color={DIM}>· {elapsed}</Text>
       </Box>
       <Text color={BODY} bold>
-        {agent.prompt.slice(0, 80)}
+        {agent.name}
       </Text>
       <Text color={BORDER}>
         {"──────────────────────────────────────────────────────────────"}
@@ -70,20 +76,24 @@ export function AgentDetail({
           <Box width={14}>
             <Text color={DIM}>repo</Text>
           </Box>
-          <Text color={BODY}>{agent.repoFullName}</Text>
+          <Text color={BODY}>{repoShortName(agent.source.repository)}</Text>
         </Box>
-        <Box>
-          <Box width={14}>
-            <Text color={DIM}>branch</Text>
+        {agent.target.branchName && (
+          <Box>
+            <Box width={14}>
+              <Text color={DIM}>branch</Text>
+            </Box>
+            <Text color={BODY}>{agent.target.branchName}</Text>
           </Box>
-          <Text color={BODY}>{agent.branch}</Text>
-        </Box>
-        <Box>
-          <Box width={14}>
-            <Text color={DIM}>base</Text>
+        )}
+        {agent.source.ref && (
+          <Box>
+            <Box width={14}>
+              <Text color={DIM}>base</Text>
+            </Box>
+            <Text color={BODY}>{agent.source.ref}</Text>
           </Box>
-          <Text color={BODY}>{agent.baseBranch}</Text>
-        </Box>
+        )}
         <Box>
           <Box width={14}>
             <Text color={DIM}>started</Text>
@@ -92,28 +102,30 @@ export function AgentDetail({
             {new Date(agent.createdAt).toLocaleTimeString()}
           </Text>
         </Box>
-        {agent.prUrl && (
+        {agent.target.prUrl && (
           <Box>
             <Box width={14}>
               <Text color={DIM}>pr</Text>
             </Box>
-            <Text color={LABEL}>{agent.prUrl}</Text>
+            <Text color={LABEL}>{agent.target.prUrl}</Text>
           </Box>
         )}
       </Box>
 
-      <Box
-        marginTop={1}
-        flexDirection="column"
-        borderStyle="single"
-        borderColor={BORDER}
-        paddingX={1}
-      >
-        <Text color={LABEL} bold>
-          your task
-        </Text>
-        <Text color={BODY}>{agent.prompt}</Text>
-      </Box>
+      {agent.summary && (
+        <Box
+          marginTop={1}
+          flexDirection="column"
+          borderStyle="single"
+          borderColor={BORDER}
+          paddingX={1}
+        >
+          <Text color={LABEL} bold>
+            summary
+          </Text>
+          <Text color={BODY}>{agent.summary}</Text>
+        </Box>
+      )}
 
       {lastAssistantMsg && (
         <Box
@@ -127,12 +139,14 @@ export function AgentDetail({
             latest from agent
           </Text>
           <Text color={BODY} wrap="truncate">
-            {lastAssistantMsg.content.slice(0, 500)}
+            {lastAssistantMsg.text.slice(0, 500)}
           </Text>
-          {messages.filter((m) => m.role === "assistant").length > 1 && (
+          {messages.filter((m) => m.type === "assistant_message").length >
+            1 && (
             <Text color={DIM}>
               ─ ─ scroll up for{" "}
-              {messages.filter((m) => m.role === "assistant").length - 1}{" "}
+              {messages.filter((m) => m.type === "assistant_message").length -
+                1}{" "}
               earlier messages ─ ─
             </Text>
           )}
@@ -142,7 +156,7 @@ export function AgentDetail({
       <Box marginTop={1} gap={2}>
         <Text color={DIM}>esc</Text>
         <Text color={BODY}>back</Text>
-        {agent.status === "running" && (
+        {agent.status === "RUNNING" && (
           <>
             <Text color={AMBER}>f</Text>
             <Text color={BODY}>follow-up</Text>

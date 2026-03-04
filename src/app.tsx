@@ -75,11 +75,11 @@ function Dashboard({ apiKey }: { apiKey: string }) {
       }
       if (input === "s" && agents[selectedIndex]) {
         const agent = agents[selectedIndex]!;
-        if (agent.status === "running") {
+        if (agent.status === "RUNNING") {
           setConfirmAction({
             type: "stop",
             agentId: agent.id,
-            agentName: agent.prompt.slice(0, 40),
+            agentName: agent.name.slice(0, 40),
           });
         }
       }
@@ -88,7 +88,7 @@ function Dashboard({ apiKey }: { apiKey: string }) {
         setConfirmAction({
           type: "delete",
           agentId: agent.id,
-          agentName: agent.prompt.slice(0, 40),
+          agentName: agent.name.slice(0, 40),
         });
       }
     },
@@ -148,7 +148,7 @@ function Dashboard({ apiKey }: { apiKey: string }) {
           goToDashboard();
         }}
         onOpenBrowser={() => {
-          const url = agent.prUrl ?? `https://cursor.com/agents/${agent.id}`;
+          const url = agent.target.prUrl ?? agent.target.url;
           import("open").then((mod) => mod.default(url));
         }}
       />
@@ -164,8 +164,8 @@ function Dashboard({ apiKey }: { apiKey: string }) {
     return (
       <FollowUpPrompt
         agent={agent}
-        onSubmit={async (prompt) => {
-          await followUp({ agentId: agent.id, prompt });
+        onSubmit={async (text) => {
+          await followUp(agent.id, text);
           goToDashboard();
         }}
         onCancel={goToDashboard}

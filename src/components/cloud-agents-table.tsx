@@ -17,40 +17,45 @@ interface AgentRowProps {
   selected: boolean;
 }
 
+function repoShortName(repo: string): string {
+  return repo
+    .replace("https://github.com/", "")
+    .replace("github.com/", "");
+}
+
 function AgentRow({ agent, selected }: AgentRowProps) {
   const elapsed = useElapsed(
-    agent.status === "running" || agent.status === "creating"
+    agent.status === "RUNNING" || agent.status === "CREATING"
       ? agent.createdAt
       : null,
   );
 
-  const name = agent.prompt.length > 30
-    ? agent.prompt.slice(0, 30) + "…"
-    : agent.prompt;
+  const name =
+    agent.name.length > 30 ? agent.name.slice(0, 30) + "…" : agent.name;
 
   const rightInfo = (() => {
-    if (agent.status === "running" || agent.status === "creating") {
+    if (agent.status === "RUNNING" || agent.status === "CREATING") {
       return <Text color={DIM}>{elapsed}</Text>;
     }
-    if (agent.status === "completed" && agent.prUrl) {
-      const prNum = agent.prUrl.match(/\/pull\/(\d+)/)?.[1];
-      return (
-        <Text color={GREEN}>done → PR #{prNum ?? "?"}</Text>
-      );
+    if (agent.status === "FINISHED" && agent.target.prUrl) {
+      const prNum = agent.target.prUrl.match(/\/pull\/(\d+)/)?.[1];
+      return <Text color={GREEN}>done → PR #{prNum ?? "?"}</Text>;
     }
-    if (agent.status === "error") {
-      const msg = agent.errorMessage?.slice(0, 30) ?? "unknown error";
+    if (agent.status === "ERROR") {
+      const msg = agent.summary?.slice(0, 30) ?? "error";
       return <Text color={RED}>error: {msg}</Text>;
     }
-    if (agent.status === "stopped") {
-      return <Text color={DIM}>stopped</Text>;
+    if (agent.status === "EXPIRED") {
+      return <Text color={DIM}>expired</Text>;
     }
     return <Text color={GREEN}>done</Text>;
   })();
 
   return (
     <Box>
-      <Text color={selected ? AMBER : undefined}>{selected ? "▸" : " "}</Text>
+      <Text color={selected ? AMBER : undefined}>
+        {selected ? "▸" : " "}
+      </Text>
       <StatusBadge status={agent.status} />
       <Text>{"  "}</Text>
       <Box width={32}>
@@ -60,12 +65,10 @@ function AgentRow({ agent, selected }: AgentRowProps) {
       </Box>
       <Box width={22}>
         <Text color={DIM} wrap="truncate">
-          {agent.repoFullName}
+          {repoShortName(agent.source.repository)}
         </Text>
       </Box>
-      <Box flexGrow={1}>
-        {rightInfo}
-      </Box>
+      <Box flexGrow={1}>{rightInfo}</Box>
     </Box>
   );
 }

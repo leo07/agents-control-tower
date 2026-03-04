@@ -46,7 +46,7 @@ export function ErrorState({
           <Box marginTop={1} flexDirection="column">
             <Text color={BODY}>Fix it:</Text>
             <Text color={DIM}>
-              {"  "}1. Go to cursor.com/settings → API Keys
+              {"  "}1. Go to cursor.com/dashboard → Integrations
             </Text>
             <Text color={DIM}>{"  "}2. Create a new key</Text>
             <Text color={DIM}>{"  "}3. Press c to reconfigure</Text>

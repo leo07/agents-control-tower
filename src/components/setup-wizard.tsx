@@ -83,7 +83,7 @@ export function SetupWizard({ onComplete, onQuit }: SetupWizardProps) {
         )}
         <Box marginTop={1} flexDirection="column">
           <Text color={DIM}>
-            Get your key at cursor.com/settings → API Keys
+            Get your key at cursor.com/dashboard → Integrations
           </Text>
           <Text color={DIM}>
             Or set CURSOR_API_KEY env var and restart.

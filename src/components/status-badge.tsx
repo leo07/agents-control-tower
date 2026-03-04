@@ -9,13 +9,13 @@ const DIM = "#4a6785";
 
 const STATUS_CONFIG: Record<
   AgentStatus,
-  { symbol: string; color: string; pulse: boolean }
+  { symbol: string; color: string; pulse: boolean; label: string }
 > = {
-  running: { symbol: "◉", color: AMBER, pulse: true },
-  creating: { symbol: "◉", color: AMBER, pulse: true },
-  completed: { symbol: "✔", color: GREEN, pulse: false },
-  error: { symbol: "✖", color: RED, pulse: false },
-  stopped: { symbol: "◉", color: DIM, pulse: false },
+  RUNNING: { symbol: "◉", color: AMBER, pulse: true, label: "RUNNING" },
+  CREATING: { symbol: "◉", color: AMBER, pulse: true, label: "CREATING" },
+  FINISHED: { symbol: "✔", color: GREEN, pulse: false, label: "FINISHED" },
+  ERROR: { symbol: "✖", color: RED, pulse: false, label: "ERROR" },
+  EXPIRED: { symbol: "◉", color: DIM, pulse: false, label: "EXPIRED" },
 };
 
 interface StatusBadgeProps {
@@ -41,6 +41,5 @@ export function StatusBadge({ status }: StatusBadgeProps) {
 
 export function StatusLabel({ status }: StatusBadgeProps) {
   const config = STATUS_CONFIG[status];
-  const label = status.toUpperCase();
-  return <Text color={config.color}>{label}</Text>;
+  return <Text color={config.color}>{config.label}</Text>;
 }

@@ -1,21 +1,24 @@
 import React, { useState, useMemo } from "react";
 import { Box, Text, useInput } from "ink";
 import { TextInput, Select } from "@inkjs/ui";
-import type { Repository, Model, LaunchAgentParams } from "../lib/types.js";
+import type { Repository, CreateAgentRequest } from "../lib/types.js";
 
-const BORDER = "#1e3a5f";
 const LABEL = "#4a90c4";
 const BODY = "#c9d1d9";
 const DIM = "#4a6785";
 const AMBER = "#e8912d";
 const GREEN = "#3fb950";
 
+function repoDisplay(repo: Repository): string {
+  return `${repo.owner}/${repo.name}`;
+}
+
 interface LaunchFlowProps {
   repos: Repository[];
-  models: Model[];
+  models: string[];
   reposLoading: boolean;
   modelsLoading: boolean;
-  onLaunch: (params: LaunchAgentParams) => void;
+  onLaunch: (params: CreateAgentRequest) => void;
   onCancel: () => void;
 }
 
@@ -30,7 +33,7 @@ export function LaunchFlow({
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedRepo, setSelectedRepo] = useState<Repository | null>(null);
   const [prompt, setPrompt] = useState("");
-  const [selectedModelId, setSelectedModelId] = useState<string>("auto");
+  const [selectedModel, setSelectedModel] = useState<string>("default");
   const [filter, setFilter] = useState("");
   const [launched, setLaunched] = useState(false);
 
@@ -45,7 +48,7 @@ export function LaunchFlow({
     if (!filter) return repos;
     const lower = filter.toLowerCase();
     return repos.filter((r) =>
-      r.fullName.toLowerCase().includes(lower),
+      repoDisplay(r).toLowerCase().includes(lower),
     );
   }, [repos, filter]);
 
@@ -56,7 +59,8 @@ export function LaunchFlow({
           ✔ Agent launched: "{prompt.slice(0, 50)}..."
         </Text>
         <Text color={DIM}>
-          {"   "}on {selectedRepo?.fullName} · model: {selectedModelId}
+          {"   "}on {selectedRepo ? repoDisplay(selectedRepo) : ""} · model:{" "}
+          {selectedModel}
         </Text>
         <Box marginTop={1}>
           <Text color={DIM}>Returning to dashboard...</Text>
@@ -76,10 +80,7 @@ export function LaunchFlow({
         </Box>
         <Box marginTop={1}>
           <Text color={DIM}>Filter: </Text>
-          <TextInput
-            placeholder="type to filter..."
-            onChange={setFilter}
-          />
+          <TextInput placeholder="type to filter..." onChange={setFilter} />
         </Box>
         {reposLoading ? (
           <Box marginTop={1}>
@@ -89,11 +90,11 @@ export function LaunchFlow({
           <Box marginTop={1}>
             <Select
               options={filteredRepos.map((r) => ({
-                label: r.fullName,
-                value: r.id,
+                label: repoDisplay(r),
+                value: r.repository,
               }))}
-              onChange={(repoId) => {
-                const repo = repos.find((r) => r.id === repoId);
+              onChange={(repoUrl) => {
+                const repo = repos.find((r) => r.repository === repoUrl);
                 if (repo) {
                   setSelectedRepo(repo);
                   setStep(2);
@@ -130,8 +131,7 @@ export function LaunchFlow({
         </Box>
         <Box marginTop={1}>
           <Text color={DIM}>
-            Repo: {selectedRepo?.fullName} · Branch:{" "}
-            {selectedRepo?.defaultBranch}
+            Repo: {selectedRepo ? repoDisplay(selectedRepo) : ""}
           </Text>
         </Box>
         <Box marginTop={1}>
@@ -172,8 +172,7 @@ export function LaunchFlow({
       </Box>
       <Box marginTop={1} flexDirection="column">
         <Text color={DIM}>
-          Repo: {selectedRepo?.fullName} · Branch:{" "}
-          {selectedRepo?.defaultBranch}
+          Repo: {selectedRepo ? repoDisplay(selectedRepo) : ""}
         </Text>
         <Text color={DIM}>Task: {prompt.slice(0, 60)}...</Text>
       </Box>
@@ -184,13 +183,13 @@ export function LaunchFlow({
         ) : (
           <Select
             options={[
-              { label: "auto (recommended)", value: "auto" },
+              { label: "default (auto)", value: "default" },
               ...models.map((m) => ({
-                label: `${m.name} (${m.provider})`,
-                value: m.id,
+                label: m,
+                value: m,
               })),
             ]}
-            onChange={setSelectedModelId}
+            onChange={setSelectedModel}
           />
         )}
       </Box>
@@ -201,15 +200,15 @@ export function LaunchFlow({
         <Text color={BODY}>back</Text>
       </Box>
 
-      {selectedModelId && (
+      {selectedModel && (
         <LaunchButton
           onLaunch={() => {
             setLaunched(true);
             onLaunch({
-              repoFullName: selectedRepo!.fullName,
-              prompt,
-              modelId: selectedModelId === "auto" ? undefined : selectedModelId,
-              baseBranch: selectedRepo!.defaultBranch,
+              prompt: { text: prompt },
+              source: { repository: selectedRepo!.repository },
+              model: selectedModel === "default" ? undefined : selectedModel,
+              target: { autoCreatePr: true },
             });
           }}
         />

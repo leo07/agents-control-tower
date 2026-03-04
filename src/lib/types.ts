@@ -1,62 +1,77 @@
 export type AgentStatus =
-  | "completed"
-  | "stopped"
-  | "error"
-  | "running"
-  | "creating";
+  | "RUNNING"
+  | "FINISHED"
+  | "ERROR"
+  | "CREATING"
+  | "EXPIRED";
+
+export interface AgentSource {
+  repository: string;
+  ref?: string;
+}
+
+export interface AgentTarget {
+  branchName?: string;
+  url: string;
+  prUrl?: string;
+  autoCreatePr?: boolean;
+  autoBranch?: boolean;
+  openAsCursorGithubApp?: boolean;
+  skipReviewerRequest?: boolean;
+}
 
 export interface CloudAgent {
   id: string;
+  name: string;
   status: AgentStatus;
-  prompt: string;
-  repoFullName: string;
-  branch: string;
-  baseBranch: string;
-  prUrl: string | null;
-  errorMessage: string | null;
-  modelName: string | null;
+  source: AgentSource;
+  target: AgentTarget;
+  summary?: string;
   createdAt: string;
-  updatedAt: string;
-}
-
-export interface AgentConversation {
-  messages: ConversationMessage[];
 }
 
 export interface ConversationMessage {
-  role: "user" | "assistant";
-  content: string;
-  timestamp: string;
+  id: string;
+  type: "user_message" | "assistant_message";
+  text: string;
 }
 
-export interface AgentArtifact {
-  name: string;
-  url: string;
-  type: string;
+export interface AgentConversation {
+  id: string;
+  messages: ConversationMessage[];
+}
+
+export interface Artifact {
+  absolutePath: string;
+  sizeBytes: number;
+  updatedAt: string;
 }
 
 export interface Repository {
-  id: string;
-  fullName: string;
-  defaultBranch: string;
-}
-
-export interface Model {
-  id: string;
+  owner: string;
   name: string;
-  provider: string;
+  repository: string;
 }
 
-export interface LaunchAgentParams {
-  repoFullName: string;
-  prompt: string;
-  modelId?: string;
-  baseBranch?: string;
+export interface CreateAgentRequest {
+  prompt: {
+    text: string;
+  };
+  source: {
+    repository: string;
+    ref?: string;
+  };
+  model?: string;
+  target?: {
+    autoCreatePr?: boolean;
+    branchName?: string;
+  };
 }
 
-export interface FollowUpParams {
-  agentId: string;
-  prompt: string;
+export interface FollowUpRequest {
+  prompt: {
+    text: string;
+  };
 }
 
 export type Screen =
