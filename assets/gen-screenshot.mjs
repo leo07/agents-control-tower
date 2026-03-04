@@ -2,7 +2,7 @@ import { createCanvas } from "canvas";
 import { writeFileSync } from "fs";
 
 const W = 880;
-const H = 520;
+const H = 580;
 const canvas = createCanvas(W, H);
 const ctx = canvas.getContext("2d");
 
@@ -34,16 +34,16 @@ ctx.beginPath(); ctx.arc(56, 16, 6, 0, Math.PI * 2); ctx.fill();
 
 ctx.fillStyle = DIM;
 ctx.font = "12px Menlo, monospace";
-ctx.fillText("agents-control-tower — npx agents-control-tower", 300, 20);
+ctx.fillText("agents-control-tower", 380, 20);
 
-const LM = 28;
-let y = 58;
+const LM = 32;
+let y = 62;
 
 ctx.fillStyle = GOLD;
 ctx.font = "13px Menlo, monospace";
 ctx.fillText("  A G E N T S", LM, y);
 
-y += 18;
+y += 20;
 const controlLines = [
   "█▀▀ █▀█ █▄░█ ▀█▀ █▀█ █▀█ █░░",
   "█▄▄ █▄█ █░▀█ ░█░ █▀▄ █▄█ █▄▄",
@@ -53,10 +53,10 @@ ctx.fillStyle = AMBER;
 ctx.font = "bold 14px Menlo, monospace";
 for (const line of controlLines) {
   ctx.fillText("  " + line, LM, y);
-  y += 16;
+  y += 17;
 }
 
-y += 4;
+y += 6;
 const towerWord = [
   "▀█▀ █▀█ █░█░█ █▀▀ █▀█",
   "░█░ █▄█ ▀▄▀▄▀ ██▄ █▀▄",
@@ -65,14 +65,14 @@ const towerWord = [
 ctx.fillStyle = AMBER_DARK;
 for (const line of towerWord) {
   ctx.fillText("  " + line, LM, y);
-  y += 16;
+  y += 17;
 }
 
 const tx = 700;
-let ty = 52;
+let ty = 56;
 ctx.font = "13px Menlo, monospace";
 ctx.fillStyle = RED;
-ctx.fillText("|", tx + 52, ty); ty += 14;
+ctx.fillText("║", tx + 52, ty); ty += 14;
 ctx.fillStyle = AMBER_DARK;
 ctx.fillText("║   ║   ║", tx + 24, ty); ty += 14;
 ctx.fillStyle = AMBER;
@@ -97,12 +97,12 @@ ctx.fillText("║", tx + 68, ty); ty += 14;
 ctx.fillStyle = AMBER;
 ctx.fillText("══╩═════╩══", tx + 16, ty);
 
-y += 6;
+y += 8;
 ctx.fillStyle = DIM;
 ctx.font = "12px Menlo, monospace";
 ctx.fillText("  ░░░░ launch · watch · command ░░░░", LM, y);
 
-y += 22;
+y += 28;
 ctx.fillStyle = AMBER;
 ctx.font = "bold 13px Menlo, monospace";
 ctx.fillText("3 running", LM + 22, y);
@@ -112,21 +112,21 @@ ctx.fillStyle = DIM;
 ctx.font = "12px Menlo, monospace";
 ctx.fillText("synced just now", 620, y);
 
-y += 20;
+y += 28;
 
 ctx.strokeStyle = BORDER;
 ctx.lineWidth = 1;
-ctx.strokeRect(LM - 4, y, W - 52, 138);
+ctx.strokeRect(LM - 4, y, W - 56, 140);
 
 ctx.fillStyle = "#0f1830";
-ctx.fillRect(LM - 3, y + 1, W - 54, 18);
+ctx.fillRect(LM - 3, y + 1, W - 58, 18);
 ctx.fillStyle = BLUE;
 ctx.font = "bold 12px Menlo, monospace";
 ctx.fillText("  cloud", LM, y + 14);
 ctx.fillStyle = DIM;
-ctx.fillText("1/5", W - 84, y + 14);
+ctx.fillText("1/5", W - 92, y + 14);
 
-y += 24;
+y += 26;
 
 const agents = [
   { b: "●", bc: AMBER, name: "Add auth middleware", repo: "acme-corp/web-app", s: "3m 22s", sc: AMBER, sel: true },
@@ -140,7 +140,7 @@ ctx.font = "13px Menlo, monospace";
 for (const a of agents) {
   if (a.sel) {
     ctx.fillStyle = SELECTED_BG;
-    ctx.fillRect(LM - 3, y - 13, W - 54, 18);
+    ctx.fillRect(LM - 3, y - 13, W - 58, 20);
     ctx.fillStyle = AMBER;
     ctx.fillText(" ▸", LM, y);
   } else {
@@ -156,21 +156,21 @@ for (const a of agents) {
   ctx.fillText(a.repo.padEnd(24).slice(0, 24), LM + 298, y);
   ctx.fillStyle = a.sc;
   ctx.fillText(a.s, LM + 498, y);
-  y += 20;
+  y += 21;
 }
 
-y += 12;
+y += 16;
 
 ctx.strokeStyle = BORDER;
-ctx.strokeRect(LM - 4, y, W - 52, 56);
+ctx.strokeRect(LM - 4, y, W - 56, 58);
 
 ctx.fillStyle = "#0f1830";
-ctx.fillRect(LM - 3, y + 1, W - 54, 18);
+ctx.fillRect(LM - 3, y + 1, W - 58, 18);
 ctx.fillStyle = BLUE;
 ctx.font = "bold 12px Menlo, monospace";
 ctx.fillText("  activity", LM, y + 14);
 
-y += 26;
+y += 28;
 ctx.font = "13px Menlo, monospace";
 ctx.fillStyle = DIM;
 ctx.fillText("2m ago ", LM + 8, y);
@@ -187,7 +187,7 @@ ctx.fillText("●", LM + 80, y);
 ctx.fillStyle = BODY;
 ctx.fillText('"Refactor auth module" done · acme-corp/api-server', LM + 98, y);
 
-y += 30;
+y += 34;
 
 ctx.fillStyle = FOOTER_BG;
 ctx.fillRect(0, y - 14, W, 30);
