@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="agents-control-tower" width="100" height="100" />
+</p>
+
 <h1 align="center">agents-control-tower</h1>
 
 <p align="center">
@@ -15,18 +19,19 @@
 </p>
 
 <p align="center">
-  <a href="#quick-start"><img src="https://img.shields.io/badge/Quick_Start-grey?style=for-the-badge" alt="Quick Start" /></a>
+  <a href="#quick-start"><img src="https://img.shields.io/badge/TRY_IT_NOW-2ea44f?style=for-the-badge" alt="Try It Now" /></a>
   &nbsp;
-  <a href="#what-you-can-do"><img src="https://img.shields.io/badge/Features-grey?style=for-the-badge" alt="Features" /></a>
+  <a href="#quick-start"><img src="https://img.shields.io/badge/INSTALL-0969da?style=for-the-badge" alt="Install" /></a>
   &nbsp;
-  <a href="#how-it-works"><img src="https://img.shields.io/badge/Architecture-grey?style=for-the-badge" alt="Architecture" /></a>
+  <a href="#the-dashboard"><img src="https://img.shields.io/badge/SEE_DASHBOARD-8957e5?style=for-the-badge" alt="See Dashboard" /></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/ofershap/agents-control-tower/actions/workflows/ci.yml"><img src="https://github.com/ofershap/agents-control-tower/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-strict-blue" alt="TypeScript" /></a>
-  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node-≥20-brightgreen" alt="Node >= 20" /></a>
+  <a href="https://github.com/ofershap/agents-control-tower/stargazers"><img src="https://img.shields.io/github/stars/ofershap/agents-control-tower?style=social" alt="GitHub Stars" /></a>
+  <a href="https://github.com/ofershap/agents-control-tower/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" /></a>
 </p>
 
 ---
@@ -47,6 +52,20 @@ npx agents-control-tower
 ```
 
 That's it. One command. The tower lights up.
+
+---
+
+## What's Different
+
+| | Cursor web dashboard | Conduit | SwarmClaw | **agents-control-tower** |
+|---|---|---|---|---|
+| Cursor-native | yes | no | no | **yes** |
+| Terminal UI | no | yes | no | **yes** |
+| Launch agents | no | no | partial | **yes** |
+| Follow-up / stop / delete | no | no | no | **yes** |
+| Local agent hooks | no | no | no | **Phase 2** |
+| Retro ASCII aesthetic | no | no | no | **yes** |
+| One command install | n/a | yes | no | **yes** |
 
 ---
 
@@ -135,7 +154,15 @@ The tower talks to two data sources:
   Cursor Hooks     ──→ File Watcher ──→ State Store ──→ Ink TUI
 ```
 
-**Stack:** Ink 5 (React for terminals) · TypeScript (strict) · native fetch · tsup · Vitest
+### Tech Stack
+
+| | |
+|---|---|
+| <img src="https://img.shields.io/badge/Ink_5-React_for_CLIs-61DAFB?logo=react&logoColor=white" alt="Ink" /> | TUI framework |
+| <img src="https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white" alt="TypeScript" /> | Type safety |
+| <img src="https://img.shields.io/badge/Node.js-≥20-339933?logo=node.js&logoColor=white" alt="Node.js" /> | Runtime |
+| <img src="https://img.shields.io/badge/tsup-build-000000?logo=esbuild&logoColor=white" alt="tsup" /> | Bundler |
+| <img src="https://img.shields.io/badge/Vitest-testing-6E9F18?logo=vitest&logoColor=white" alt="Vitest" /> | Tests |
 
 ---
 
@@ -178,13 +205,9 @@ The tower talks to two data sources:
 
 ---
 
-## Roadmap
+## Contributing
 
-**Phase 1 (current)** - Cloud agents command center. Full CRUD. Retro TUI.
-
-**Phase 2** - Local agent hooks. See your in-IDE Cursor sessions, file edits, shell commands. Activity feed with live events.
-
-**Phase 3** - Vim keybindings, color themes, compact mode for narrow terminals.
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and guidelines.
 
 ---
 
