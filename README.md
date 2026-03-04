@@ -54,6 +54,13 @@ npx agents-control-tower
 
 One command. The tower lights up.
 
+**Features**
+- Launch Cursor cloud agents from the terminal (repo, prompt, model)
+- Send follow-up instructions to running agents without leaving the TUI
+- Stop or delete agents from the dashboard
+- See status at a glance: running (amber), done (with PR link), errors (red)
+- No install needed — run with `npx` or install globally for the `control-tower` command
+
 ---
 
 <a id="the-dashboard"></a>
@@ -102,7 +109,7 @@ The dashboard polls every 5 seconds. Scroll through agents with arrow keys, view
 
 ## Install
 
-Published as **[agents-control-tower](https://www.npmjs.com/package/agents-control-tower)** on npm.
+Requires **Node 20+**. Published as **[agents-control-tower](https://www.npmjs.com/package/agents-control-tower)** on npm.
 
 Run directly with npx (nothing to install):
 
