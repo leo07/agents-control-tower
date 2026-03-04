@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <em>One terminal. All your agents. Full control.</em>
+  <em>Welcome aboard the control tower. One terminal. All your agents. Full control.</em>
 </p>
 
 <p align="center">
