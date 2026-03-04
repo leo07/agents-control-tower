@@ -1,7 +1,7 @@
 <h1 align="center">agents-control-tower</h1>
 
 <p align="center">
-  <strong>Your Cursor agents are running. You have no idea what they're doing.</strong>
+  <strong>Your Cursor agents are running. Do you know what they're doing?</strong>
 </p>
 
 <p align="center">
